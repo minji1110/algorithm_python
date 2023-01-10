@@ -26,5 +26,5 @@ while(start<=end):
     else:
         end=height-1
 
-print(answer)
+
 
