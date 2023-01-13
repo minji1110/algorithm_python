@@ -12,7 +12,6 @@ def solution(s):
 
     # n 개로 자르는 경우
     for n in range(1,maximum_n+1):
-        print('n= ',n) 
         n_answer=0
         dupl_cnt=0
         prev=""
