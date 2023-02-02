@@ -1,7 +1,4 @@
 # 다시 
-import sys
-def input() : return sys.stdin.readline().rstrip()
-
 n=5
 build_frame=[
     [1,0,0,1],
