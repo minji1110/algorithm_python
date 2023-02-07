@@ -1,28 +1,30 @@
 import sys
 import heapq
 def input(): return sys.stdin.readline().rstrip()
+INF = 1e9
 
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
 def get_shortest_path(n,matrix):
     q=[]
-    visited=[[False]*n for _ in range(n)]
-    
-    heapq.heappush(q,(matrix[0][0],0,0))
-    visited[0][0]=True
+    distance=[[INF]*n for _ in range(n)]
+
+    distance[0][0]=matrix[0][0]
+    heapq.heappush(q,(distance[0][0],0,0))
 
     while q:
         dis,x,y=heapq.heappop(q)
-        if x==y==n-1:
-            print(dis)
-            break
+        if distance[x][y]<dis:
+            continue
         for i in range(4):
             nx,ny = x+dx[i],y+dy[i]
-            if 0<=nx<n and 0<=ny<n and not visited[nx][ny]:
-                    heapq.heappush(q,(dis+matrix[nx][ny],nx,ny))
-                    visited[nx][ny]=True
-    return
+            if 0<=nx<n and 0<=ny<n :
+                if distance[nx][ny]>dis+matrix[nx][ny]:
+                    distance[nx][ny]=dis+matrix[nx][ny]
+                    heapq.heappush(q,(distance[nx][ny],nx,ny))
+                    
+    return distance[n-1][n-1]
 
 tc = int(input())
 for _ in range(tc):
@@ -32,4 +34,4 @@ for _ in range(tc):
     for _ in range(n):
         matrix.append(list(map(int,input().split())))
     
-    get_shortest_path(n,matrix)
+    print(get_shortest_path(n,matrix))

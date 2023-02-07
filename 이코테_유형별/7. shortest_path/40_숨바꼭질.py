@@ -1,12 +1,12 @@
 import sys
 import heapq
 def input(): return sys.stdin.readline().rstrip()
+INF = 1e9
 
 n,m = map(int,input().split())
-
 matrix = [[-1]*(n+1) for _ in range(n+1)]
-visited=[False]*(n+1)
-distance=[-1]*(n+1)
+distance=[INF]*(n+1)
+distance[1]=0
 
 for _ in range(m):
     a,b=map(int,input().split())
@@ -15,15 +15,16 @@ for _ in range(m):
 
 q=[]
 heapq.heappush(q,(0,1)) # 거리, 헛간번호
-visited[1]=True
 
 while q:
     dis,x = heapq.heappop(q)
+    if distance[x]<dis:
+        continue
     for next in range(1,n+1):
-        if not visited[next] and matrix[x][next]>0:
-            visited[next]=True
-            distance[next]=dis+1
-            heapq.heappush(q,(dis+1, next))
+        if matrix[x][next]>0:
+            if distance[next]>dis+1:
+                distance[next]=dis+1
+                heapq.heappush(q,(dis+1, next))
 
 answer_number=0
 answer_distance=0
